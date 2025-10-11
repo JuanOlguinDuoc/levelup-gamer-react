@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { validationPassword, validationEmail } from './Validation.js';
 import { showErrorToast, showSuccessToast } from '../../utils/toast.js';
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({ email: '', password: '' });
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,6 +28,7 @@ export default function Login() {
         setErrors(newErrors);
         if (isValid) {
             showSuccessToast('Inicio de sesión exitoso')
+            navigate('/home');
             console.log('Formulario enviado');
         } else {
             const errorMessages = Object.values(newErrors)
@@ -39,7 +43,7 @@ export default function Login() {
             <form className="login-form" onSubmit={handleSubmit}>
                 <input type="email" id="email" name="email" placeholder="Correo Electrónico *" value={email} onChange={(e) => setEmail(e.target.value)} /><br />
                 <input type="password" id="password" name="password" placeholder="Contraseña *" value={password} onChange={(e) => setPassword(e.target.value)} /><br />
-                <button type="submit" className="btn">
+                <button type="submit" className="btn" >
                     <span></span>
                     <span></span>
                     <span></span>
@@ -47,7 +51,7 @@ export default function Login() {
                     Iniciar sesión
                 </button>
             </form>
-            <p className="message">¿No tienes una cuenta? <a href="#/register">Crear cuenta</a></p>
+            <p className="message">¿No tienes una cuenta? <Link to="/register">Crear cuenta</Link></p>
         </div>
     )
 }

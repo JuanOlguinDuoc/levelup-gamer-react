@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { showErrorToast, showSuccessToast } from '../../utils/toast';
+import { Link } from 'react-router-dom'
 import {
     validationRun,
     validationName,
@@ -98,7 +99,7 @@ export default function Register() {
                     Crear cuenta
                 </button>
             </form>
-            <p className="message">¿Ya tienes una cuenta? <a href="../login/login.html">Iniciar sesión</a></p>
+            <p className="message">¿Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link></p>
         </div>
     )
 }
