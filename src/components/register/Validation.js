@@ -1,0 +1,31 @@
+export function validationRun(run){
+    const runRegex = /^\d{7,8}-[0-9kK]$/;
+    return runRegex.test(run)
+}
+
+export function validationName(nombre){
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+$/;
+    return nameRegex.test(nombre)
+}
+
+export function validationApellidos(apellidos){
+    const apellidosRegex = /^[a-zA-ZÀ-ÿ]+ [a-zA-ZÀ-ÿ]+$/;
+    return apellidosRegex.test(apellidos)
+}
+
+export function validationDireccion(direccion){
+    return direccion && direccion.trim().length > 0
+}
+
+export function validationEmail(email){
+    const emailRegex = /^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/;
+    return emailRegex.test(email)
+}
+
+export function validationPassword(password){
+    return password.length >= 4 && password.length <= 10
+}
+
+export function validationConfirmPassword(password, confirmPassword){
+    return password === confirmPassword && password.length > 0
+} 
