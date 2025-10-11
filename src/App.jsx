@@ -2,12 +2,21 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Login from './components/login/Login'
+import Register from './components/register/Register'
+import Home from './components/home/Home'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <ToastContainer/>
+      <Login />
+      <Register/>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
