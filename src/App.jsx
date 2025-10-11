@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './components/navbar/Navbar'
 
 import Login from './components/login/Login'
 import Register from './components/register/Register'
@@ -10,15 +12,16 @@ import './App.css'
 
 function App() {
   return (
+    
     <Router>
+      <Navbar />
       {/* Contenedor global de notificaciones */}
       <ToastContainer />
 
       {/* Rutas principales */}
       <Routes>
-        {/* Redirige la raíz "/" al login */}
-        <Route path="/" element={<Navigate to="/home" />} />
-
+        {/* Redirige la raíz "/" al home */}
+        
         {/* Login y registro */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

@@ -11,7 +11,10 @@
     "test": "vitest"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
+    "flowbite-react": "^0.12.9",
     "react": "^19.1.1",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4",
     "react-toastify": "^11.0.5"

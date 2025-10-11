@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { showErrorToast, showSuccessToast } from '../../utils/toast';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
     validationRun,
     validationName,
@@ -71,6 +71,7 @@ export default function Register() {
         setErrors(newErrors);
         if (isValid) {
             showSuccessToast('Registro exitoso')
+            navigate('/home');
             console.log('Formulario válido:', { run, nombre, apellidos, direccion, email, password });
         } else {
             const errorMessages = Object.values(newErrors)
