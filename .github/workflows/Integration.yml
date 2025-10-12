@@ -1,0 +1,34 @@
+name: Integración
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Construir proyecto
+        run: npm run build
+
+      - name: Desplegar en EC2
+        env: 
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
+          KEY: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          echo "$KEY" > key.pem
+          chmod 600 key.pem
+          echo "Desplegando en $HOST"
+          ssh -i key.pem -o StrictHostKeyChecking=no $USER@$HOST "rm -rf /home/ubuntu/app/*"
+          scp -i key.pem -o StrictHostKeyChecking=no -r dist/* $USER@$HOST:/home/ubuntu/app/
+          ssh -i key.pem -o StrictHostKeyChecking=no $USER@$HOST "sudo systemctl restart nginx"
+          
+
+
