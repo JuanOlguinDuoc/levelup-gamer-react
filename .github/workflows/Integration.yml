@@ -21,7 +21,7 @@ jobs:
         env: 
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
-          KEY: ${{ secrets.EC2_SSH_KEY }}
+          KEY: ${{ secrets.EC2_KEY }}
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
