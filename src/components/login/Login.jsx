@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { validationPassword, validationEmail } from './Validation.js';
 import { showErrorToast, showSuccessToast } from '../../utils/toast.js';
 import { Link, useNavigate } from 'react-router-dom'
+import { Button } from 'react-bootstrap';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -43,15 +44,15 @@ export default function Login() {
             <form className="login-form" onSubmit={handleSubmit}>
                 <input type="email" id="email" name="email" placeholder="Correo Electrónico *" value={email} onChange={(e) => setEmail(e.target.value)} /><br />
                 <input type="password" id="password" name="password" placeholder="Contraseña *" value={password} onChange={(e) => setPassword(e.target.value)} /><br />
-                <button type="submit" className="btn" >
+                <Button type="submit" className="btn" >
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Iniciar sesión
-                </button>
+                </Button>
             </form>
-            <p className="message">¿No tienes una cuenta? <Link to="/register">Crear cuenta</Link></p>
+            <p className="message">¿No tienes una cuenta? <Link to="/register"> Crear cuenta</Link></p>
         </div>
     )
 }

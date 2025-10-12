@@ -100,7 +100,7 @@ export default function Register() {
                     Crear cuenta
                 </button>
             </form>
-            <p className="message">¿Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link></p>
+            <p className="message">¿Ya tienes una cuenta? <Link to="/login"> Iniciar sesión</Link></p>
         </div>
     )
 }

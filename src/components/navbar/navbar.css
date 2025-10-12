@@ -1,0 +1,35 @@
+.navbar {
+    background: #ac7ceb;
+    background: linear-gradient(0deg, rgba(172, 124, 235, .3) 0%, rgba(18, 2, 39, 1) 100%);
+}
+
+/* Color del texto del brand (Level Up Gamer) */
+.navbar .navbar-brand {
+    color: var(--color-acento) !important;
+}
+
+/* Color de los enlaces del navbar */
+.navbar .nav-link {
+    color: var(--color-acento) !important;
+}
+
+/* Color de los enlaces cuando pasas el mouse encima */
+.navbar .nav-link:hover {
+    color: var(--color-boton-normal) !important;
+    /* Un blanco más suave */
+}
+
+.navbar .navbar-brand:hover {
+    color: var(--color-boton-normal) !important;
+    /* Un blanco más suave */
+}
+
+/* Color de los enlaces activos */
+.navbar .nav-link:focus,
+.navbar .nav-link:active {
+    color: var(--color-boton-active) !important;
+}
+
+.container {
+    color: aliceblue !important;
+}

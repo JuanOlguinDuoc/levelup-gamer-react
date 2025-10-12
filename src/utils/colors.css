@@ -1,0 +1,17 @@
+:root {
+  /* Fondos */
+  --color-fondo-oscuro: #52357B;
+  --color-background-secundario: #B2D8CE;
+
+  /* Colores primarios / botones */
+  --color-primario-oscuro: #5459AC;
+  --color-boton-normal: #c4a9ff;
+  --color-boton-hover: #66C2FF;
+  --color-boton-active: #ebd4b0;
+
+  /* Acentos / resaltar */
+  --color-acento: #7CEBB9;
+
+  /* Textos */
+  --color-texto-claro: #F5F5F5;
+}
