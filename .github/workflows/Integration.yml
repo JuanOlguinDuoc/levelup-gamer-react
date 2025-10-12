@@ -26,9 +26,9 @@ jobs:
           echo "$KEY" > key.pem
           chmod 600 key.pem
           echo "Desplegando en $HOST"
-          ssh -i key.pem -o StrictHostKeyChecking=no $USER@$HOST "rm -rf /home/ubuntu/app/*"
-          scp -i key.pem -o StrictHostKeyChecking=no -r dist/* $USER@$HOST:/home/ubuntu/app/
+          ssh -i key.pem -o StrictHostKeyChecking=no $USER@$HOST "sudo rm -rf /var/www/html/*"
+          scp -i key.pem -o StrictHostKeyChecking=no -r dist/* $USER@$HOST:/var/www/html/
           ssh -i key.pem -o StrictHostKeyChecking=no $USER@$HOST "sudo systemctl restart nginx"
-          
+
 
 
