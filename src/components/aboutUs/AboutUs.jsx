@@ -6,7 +6,7 @@ export default function AboutUs() {
 
       </section>
       <section className='mision'>
-        <h2>Nuestra Misión</h2>
+        <h2>Nuestra Misión Prueba EC2</h2>
         <p>Proporcionar productos de alta calidad para gamers en todo Chile, ofreciendo una experiencia de compra única y personalizada...</p>
       </section>
       <section className='vision'>
