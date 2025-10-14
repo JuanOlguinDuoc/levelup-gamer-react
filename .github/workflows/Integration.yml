@@ -2,8 +2,6 @@ name: Integración
 
 on:
   workflow_dispatch:
-    branches:
-    - develop
 
 jobs:
   # 👈 esto faltaba
