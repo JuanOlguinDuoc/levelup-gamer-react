@@ -1,10 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { renderToString } from 'react-dom/server';
+import { MemoryRouter } from 'react-router-dom';
 import Login from "./Login.jsx"
 
 describe('Login Component', () => {
     it('debe mostrar todos los textos y placeholders del formulario', () => {
-        const html = renderToString(<Login />)
+        const html = renderToString(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        )
 
         // Título del formulario
         expect(html).toContain('Inicio de sesión')
