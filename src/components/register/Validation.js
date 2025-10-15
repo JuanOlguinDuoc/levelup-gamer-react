@@ -4,12 +4,12 @@ export function validationRun(run){
 }
 
 export function validationName(nombre){
-    const nameRegex = /^[a-zA-ZÀ-ÿ]+$/;
+    const nameRegex = /^[A-Za-z]+( [A-Za-z]+)?$/;
     return nameRegex.test(nombre)
 }
 
 export function validationApellidos(apellidos){
-    const apellidosRegex = /^[a-zA-ZÀ-ÿ]+ [a-zA-ZÀ-ÿ]+$/;
+    const apellidosRegex = /^[A-Za-z]+ [A-Za-z]+$/;
     return apellidosRegex.test(apellidos)
 }
 

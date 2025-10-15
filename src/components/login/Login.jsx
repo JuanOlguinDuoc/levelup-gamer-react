@@ -3,6 +3,7 @@ import { validationPassword, validationEmail } from './Validation.js';
 import { showErrorToast, showSuccessToast } from '../../utils/toast.js';
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap';
+import './Login.css'
 
 export default function Login() {
     const [email, setEmail] = useState('');

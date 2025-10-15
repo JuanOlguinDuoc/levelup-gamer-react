@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { showErrorToast, showSuccessToast } from '../../utils/toast';
 import { Link, useNavigate } from 'react-router-dom'
+import './Register.css'
 import {
     validationRun,
     validationName,
@@ -12,6 +13,7 @@ import {
 } from './Validation'
 
 export default function Register() {
+    const navigate = useNavigate();
     const [run, setRun] = useState('');
     const [nombre, setNombre] = useState('');
     const [direccion, setDireccion] = useState('')
