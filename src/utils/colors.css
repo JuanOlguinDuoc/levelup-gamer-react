@@ -11,6 +11,8 @@
 
   /* Acentos / resaltar */
   --color-acento: #7CEBB9;
+  --color-acento-oscuro: #28918a;
+  --color-acento-claro: #c5e4d6;
 
   /* Textos */
   --color-texto-claro: #F5F5F5;
