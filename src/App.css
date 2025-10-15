@@ -3,11 +3,14 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  color:aliceblue;
+  color: aliceblue;
 }
 
 body {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 1) 2%, rgb(68, 27, 60) 100%);
+  background-color: #452180 !important;
+  opacity: 0.9 !important;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #5b309b 90px), repeating-linear-gradient(#00000055, #000000) !important;
+  background-size: cover !important;
 }
 
 navbar {

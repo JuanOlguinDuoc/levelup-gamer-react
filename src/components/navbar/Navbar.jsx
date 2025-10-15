@@ -12,9 +12,12 @@ export default function CustomNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            <Nav.Link as={Link} to="/products">Productos</Nav.Link>
+            <Nav.Link as={Link} to="/aboutus">Sobre Nosotros</Nav.Link>
+          </Nav>
+          <Nav>
             <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
             <Nav.Link as={Link} to="/register">Registro</Nav.Link>
-            <Nav.Link as={Link} to="/aboutus">Sobre Nosotros</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
