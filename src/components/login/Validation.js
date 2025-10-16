@@ -6,3 +6,4 @@ export function validationEmail(email){
 export function validationPassword(password) {
   return password.length >= 4 && password.length <= 10;
 }
+

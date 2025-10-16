@@ -4,6 +4,7 @@ import { showErrorToast, showSuccessToast } from '../../utils/toast.js';
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap';
 import './Login.css'
+import { validateLogin, isUserLoggedIn } from '../../service/localStorage.js';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -29,9 +30,14 @@ export default function Login() {
 
         setErrors(newErrors);
         if (isValid) {
-            showSuccessToast('Inicio de sesión exitoso')
-            navigate('/home');
-            console.log('Formulario enviado');
+            const loginResult = validateLogin(email, password);
+
+            if (loginResult.success) {
+                showSuccessToast('Inicio de sesión exitoso');
+                navigate('/home');
+            } else {
+                showErrorToast(loginResult.message); // "Credenciales inválidas"
+            }
         } else {
             const errorMessages = Object.values(newErrors)
                 .filter(msg => msg !== '')

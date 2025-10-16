@@ -47,6 +47,55 @@ export default function DetailProduct() {
     console.log('Toggle favorite:', producto.titulo);
   }
 
+  const getProductInfo = (producto) => {
+    const categoria = producto.categoria;
+    
+    switch (categoria) {
+      case 'juegos':
+        return {
+          type: 'Videojuego',
+          compatibility: getPlatformInfo(producto.plataforma),
+          features: ['✓ En stock', '✓ Descarga digital'],
+          icon: '🎮'
+        };
+      case 'monitores':
+        return {
+          type: 'Monitor Gaming',
+          compatibility: { name: 'Compatible con PC/Consolas', icon: '🖥️' },
+          features: ['✓ En stock', '✓ Garantía 2 años'],
+          icon: '🖥️'
+        };
+      case 'pc-armados':
+        return {
+          type: 'PC Gaming',
+          compatibility: { name: 'Sistema Completo', icon: '💻' },
+          features: ['✓ En stock', '✓ Garantía 3 años'],
+          icon: '💻'
+        };
+      case 'controles':
+        return {
+          type: 'Control/Joystick',
+          compatibility: getPlatformInfo(producto.plataforma),
+          features: ['✓ En stock', '✓ Garantía 1 año'],
+          icon: '🎯'
+        };
+      case 'consolas':
+        return {
+          type: 'Consola de Videojuegos',
+          compatibility: { name: 'Sistema Completo', icon: '🎮' },
+          features: ['✓ En stock', '✓ Garantía oficial'],
+          icon: '🎮'
+        };
+      default:
+        return {
+          type: 'Producto Gaming',
+          compatibility: { name: 'Compatible', icon: '🛍️' },
+          features: ['✓ En stock', '✓ Garantía incluida'],
+          icon: '🛍️'
+        };
+    }
+  };
+
   const getPlatformInfo = (plataformas) => {
     if (!plataformas || plataformas.length === 0) {
       return { name: 'Plataforma no especificada', icon: '?' };
@@ -87,7 +136,7 @@ export default function DetailProduct() {
     );
   }
 
-  const platform = getPlatformInfo(producto.plataforma);
+  const productInfo = getProductInfo(producto);
 
   return (
     <div className="detail-container">  
@@ -102,15 +151,22 @@ export default function DetailProduct() {
           </div>
           
           <div className="info-section">
+            <div className="product-category-tag">
+              <span className="category-text">{productInfo.type}</span>
+            </div>
+            
             <h1 className="product-title-detail">
               {producto.titulo}
             </h1>
             
             <div className="product-platform">
-              <div className="platform-icon">{platform.icon}</div>
-              <span>{platform.name}</span>
-              <span style={{ marginLeft: 'auto', color: '#4ecdc4' }}>✓ En stock</span>
-              <span style={{ color: '#4ecdc4' }}>✓ Descarga digital</span>
+              <div className="platform-icon">{productInfo.compatibility.icon}</div>
+              <span>{productInfo.compatibility.name}</span>
+              <div className="product-features">
+                {productInfo.features.map((feature, index) => (
+                  <span key={index} style={{ color: '#4ecdc4' }}>{feature}</span>
+                ))}
+              </div>
             </div>
 
             <div className="price-section-detail">
@@ -128,16 +184,30 @@ export default function DetailProduct() {
               </button>
               
               <button onClick={handleAgregarCarrito} className="add-to-cart-instant">
-                🛒 Añadir a la cesta
+                <svg 
+                  className="cart-icon" 
+                  viewBox="0 0 24 24" 
+                  fill="currentColor"
+                >
+                  <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+                Añadir a la cesta
               </button>
             </div>
           </div>
         </div>
 
         <div className="bottom-section">
-          {/* Sección de Atributos */}
+          {/* Sección de Especificaciones */}
           <div className="attributes-section">
-            <h2>Atributos</h2>
+            <h2>
+              {producto.categoria === 'juegos' ? 'Características del Juego' : 
+               producto.categoria === 'monitores' ? 'Especificaciones Técnicas' :
+               producto.categoria === 'pc-armados' ? 'Especificaciones del Sistema' :
+               producto.categoria === 'controles' ? 'Características del Control' :
+               producto.categoria === 'consolas' ? 'Especificaciones de la Consola' :
+               'Especificaciones'}
+            </h2>
             <div className="product-attributes-detail">
               {producto.atributos}
             </div>

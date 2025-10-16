@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { showErrorToast, showSuccessToast } from '../../utils/toast';
 import { Link, useNavigate } from 'react-router-dom'
 import './Register.css'
+import { registerUser } from '../../service/localStorage';
 import {
     validationRun,
     validationName,
@@ -72,6 +73,11 @@ export default function Register() {
 
         setErrors(newErrors);
         if (isValid) {
+            const registrationResult = registerUser({ run, nombre, apellidos, direccion, email, password });
+            if (!registrationResult.success) {
+                showErrorToast(registrationResult.message); // Mostrar mensaje de error específico
+                return;
+            }
             showSuccessToast('Registro exitoso')
             navigate('/home');
             console.log('Formulario válido:', { run, nombre, apellidos, direccion, email, password });

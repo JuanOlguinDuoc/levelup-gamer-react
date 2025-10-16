@@ -14,6 +14,9 @@ import Home from './components/home/Home';
 import Products from './components/products/Products';
 import DetailProduct from './components/detailProduct/DetailProduct';
 import NotFound from './components/notFound/NotFound';
+import Contact from './components/contact';
+import Blog from './components/blog';
+import DetailBlog from './components/detailBlog/DetailBlog';
 
 import './App.css'
 
@@ -32,6 +35,9 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
         
         <Route path="/login" element={<Login />} />
+        <Route path="/blog/:slug" element={<DetailBlog />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/register" element={<Register />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/products" element={<Products />} />
