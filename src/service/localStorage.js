@@ -220,7 +220,6 @@ localStorage.setItem('productos', JSON.stringify(productos));
 localStorage.setItem('carrito', JSON.stringify(carrito));
 
 const productosRecuperados = JSON.parse(localStorage.getItem('productos'));
-console.log('Productos recuperados del localStorage:', productosRecuperados);
 
 export const getProductos = () => {
   return JSON.parse(localStorage.getItem('productos')) || []
@@ -347,13 +346,6 @@ export const esOfertaActiva = (producto) => {
 // Función de debug para verificar ofertas
 export const debugOfertas = () => {
   const productos = getProductosEnOferta();
-  console.log('=== DEBUG OFERTAS ===');
-  console.log(`Total productos con enOferta=true: ${productos.length}`);
-
-  productos.forEach(producto => {
-    const activa = esOfertaActiva(producto);
-    console.log(`${producto.titulo}: ${activa ? 'ACTIVA' : 'INACTIVA'}`);
-  });
 
   const activas = productos.filter(p => esOfertaActiva(p));
   console.log(`Ofertas activas: ${activas.length}`);
