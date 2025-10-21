@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { validationPassword, validationEmail } from './Validation.js';
 import { showErrorToast, showSuccessToast } from '../../utils/toast.js';
-import { Link, useNavigate } from 'react-router-dom'
+import { useSearchParams, Link, useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap';
 import './Login.css'
 import { validateLogin, isUserLoggedIn } from '../../service/localStorage.js';
@@ -12,6 +12,8 @@ export default function Login() {
     const [errors, setErrors] = useState({ email: '', password: '' });
 
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/home';
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,7 +36,7 @@ export default function Login() {
 
             if (loginResult.success) {
                 showSuccessToast('Inicio de sesión exitoso');
-                navigate('/home');
+                navigate(redirectTo);
             } else {
                 showErrorToast(loginResult.message); // "Credenciales inválidas"
             }
@@ -59,7 +61,11 @@ export default function Login() {
                     Iniciar sesión
                 </Button>
             </form>
-            <p className="message">¿No tienes una cuenta? <Link to="/register"> Crear cuenta</Link></p>
+            <p className="message">¿No tienes una cuenta?
+                <Link to={`/register${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
+                    Crear Cuenta
+                </Link>
+            </p>
         </div>
     )
 }

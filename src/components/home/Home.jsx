@@ -31,7 +31,7 @@ export default function Home() {
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            {isLoggedIn ? `¡Bienvenido, ${currentUser?.name}!` : '¡Bienvenido a Level Up Gamer!'}
+            {isLoggedIn ? `¡Bienvenido, ${currentUser?.name || currentUser?.nombre || 'Gamer'}!` : '¡Bienvenido a Level Up Gamer!'}
           </h1>
           <p className="hero-subtitle">
             Tu tienda gaming completa: Juegos, Hardware, Consolas y más

@@ -96,10 +96,42 @@
     height: 100%;
 }
 
+/* Product Card con Oferta */
+.product-card.has-offer {
+    border: 2px solid rgba(255, 107, 53, 0.5);
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.2);
+}
+
+.product-card.has-offer:hover {
+    border-color: rgba(255, 107, 53, 0.8);
+    box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+}
+
 .product-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border-color: rgba(76, 205, 196, 0.5);
+}
+
+/* Offer Badge */
+.offer-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.5);
+    animation: pulse-offer 2s infinite;
+}
+
+@keyframes pulse-offer {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* Product Image */
@@ -211,6 +243,50 @@
     background: linear-gradient(45deg, #44a08d, #4ecdc4);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(76, 205, 196, 0.4);
+}
+
+/* Offer Price Styling */
+.price-with-offer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+}
+
+.price-original {
+    color: #888;
+    text-decoration: line-through;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.price-offer {
+    color: #ff6b35;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.savings-badge {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 0.3rem;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-cart.has-offer {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    border: none;
+}
+
+.btn-cart.has-offer:hover {
+    background: linear-gradient(135deg, #e55a2b, #e0841a);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
 }
 
 /* Responsive Design */

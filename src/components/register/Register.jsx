@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { showErrorToast, showSuccessToast } from '../../utils/toast';
-import { Link, useNavigate } from 'react-router-dom'
+import { useSearchParams ,Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 import { registerUser } from '../../service/localStorage';
 import {
@@ -23,6 +23,8 @@ export default function Register() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState({})
+    const [searchParams] = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/home';
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -79,7 +81,7 @@ export default function Register() {
                 return;
             }
             showSuccessToast('Registro exitoso')
-            navigate('/home');
+            navigate(redirectTo);
             console.log('Formulario válido:', { run, nombre, apellidos, direccion, email, password });
         } else {
             const errorMessages = Object.values(newErrors)

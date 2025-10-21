@@ -1,0 +1,256 @@
+/* Payment Component Styles */
+.payment-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(124, 235, 185, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.payment-info {
+  margin-bottom: 2rem;
+}
+
+.payment-info h3 {
+  color: #7CEBB9;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.payment-info p {
+  color: #b8c6db;
+  margin: 0;
+}
+
+/* Card Form Styles */
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  color: #7CEBB9;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Card Input Container */
+.card-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.card-input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(20, 25, 40, 0.8);
+  border: 2px solid rgba(124, 235, 185, 0.3);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1rem;
+}
+
+.card-input:focus {
+  outline: none;
+  border-color: #7CEBB9;
+  box-shadow: 0 0 0 3px rgba(124, 235, 185, 0.1);
+  background: rgba(20, 25, 40, 0.95);
+}
+
+.card-input::placeholder {
+  color: rgba(184, 198, 219, 0.6);
+}
+
+.card-input.error {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+/* Card Type Icon */
+.card-type-icon {
+  position: absolute;
+  right: 1rem;
+  font-size: 1.5rem;
+  pointer-events: none;
+}
+
+/* Card Type Specific Styling (solo Visa y Mastercard - Chile) */
+.card-input.visa {
+  border-left: 4px solid #1a1f71;
+}
+
+.card-input.mastercard {
+  border-left: 4px solid #eb001b;
+}
+
+/* Regular Form Inputs */
+.form-group input:not(.card-input) {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(20, 25, 40, 0.8);
+  border: 2px solid rgba(124, 235, 185, 0.3);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:not(.card-input):focus {
+  outline: none;
+  border-color: #7CEBB9;
+  box-shadow: 0 0 0 3px rgba(124, 235, 185, 0.1);
+  background: rgba(20, 25, 40, 0.95);
+}
+
+.form-group input:not(.card-input)::placeholder {
+  color: rgba(184, 198, 219, 0.6);
+}
+
+.form-group input:not(.card-input).error {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+/* Error Messages */
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Security Info */
+.security-info {
+  background: rgba(124, 235, 185, 0.1);
+  border: 1px solid rgba(124, 235, 185, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.security-info p {
+  color: #7CEBB9;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Transfer Info Styles */
+.transfer-info {
+  text-align: center;
+}
+
+.transfer-info p {
+  color: #7CEBB9;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.bank-details {
+  background: rgba(20, 25, 40, 0.8);
+  border: 2px solid rgba(124, 235, 185, 0.3);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.bank-details p {
+  color: #ffffff;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.bank-details strong {
+  color: #7CEBB9;
+}
+
+.transfer-note {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.transfer-note p {
+  color: #ffc107;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.transfer-note strong {
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .payment-container {
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-info h3 {
+    font-size: 1.3rem;
+  }
+
+  .card-input {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .form-group input:not(.card-input) {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}
+
+/* Animation for form validation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.card-input.error,
+.form-group input.error {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Focus states with better visual feedback */
+.card-input:focus + .card-type-icon {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+/* Loading state for inputs */
+.card-input:disabled,
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: rgba(20, 25, 40, 0.4);
+}

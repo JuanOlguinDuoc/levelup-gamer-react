@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getProductos, getCategorias } from '../../service/localStorage'
+import { getProductos, getCategorias, addToCart, esOfertaActiva, getPrecioFinal, getPrecioOriginal } from '../../service/localStorage'
+import { showErrorToast, showSuccessToast} from '../../utils/toast.js'
 import './Product.css'
 
 export default function Products() {
@@ -33,6 +34,8 @@ export default function Products() {
 
   const handleAgregarCarrito = (producto) => {
     console.log('Agregar al carrito:', producto.titulo);
+    addToCart(producto);
+    showSuccessToast('Producto añadido al carrito');
     // Aquí puedes agregar la lógica del carrito
   }
 
@@ -72,7 +75,7 @@ export default function Products() {
           className={`filter-btn ${categoriaSeleccionada === 'todas' ? 'active' : ''}`}
           onClick={() => setCategoriaSeleccionada('todas')}
         >
-          🛍️ Todos ({productos.length})
+           Todos ({productos.length})
         </button>
         {categorias.map(categoria => (
           <button 
@@ -86,35 +89,71 @@ export default function Products() {
       </div>
 
       <div className="products-grid">
-        {productosFiltrados.map(producto => (
-          <div key={producto.id} className="product-card">
-            <div className="product-image">
-              <img src={producto.imagenUrl} alt={producto.titulo} />
-            </div>
-            <div className="product-info">
-              <div className="product-category-badge">
-                {getCategoriaLabel(producto.categoria)}
+        {productosFiltrados.map(producto => {
+          const tieneOferta = producto.enOferta && esOfertaActiva(producto);
+          
+          return (
+            <div key={producto.id} className={`product-card ${tieneOferta ? 'has-offer' : ''}`}>
+              {/* Badge de oferta */}
+              {tieneOferta && (
+                <div className="offer-badge">
+                  -{producto.descuento}%
+                </div>
+              )}
+              
+              <div className="product-image">
+                <img src={producto.imagenUrl} alt={producto.titulo} />
+                {tieneOferta && (
+                  <div className="offer-overlay">
+                    <span className="offer-text">¡OFERTA!</span>
+                  </div>
+                )}
               </div>
-              <h2 className="product-title">{producto.titulo}</h2>
-              <p className="product-attributes">{producto.atributos}</p>
-              <div className="product-price">{formatPrice(producto.precio)}</div>
-              <div className="product-buttons">
-                <button 
-                  className="btn-detail"
-                  onClick={() => handleVerDetalle(producto)}
-                >
-                  Ver detalle
-                </button>
-                <button 
-                  className="btn-cart"
-                  onClick={() => handleAgregarCarrito(producto)}
-                >
-                  Añadir al carrito
-                </button>
+              
+              <div className="product-info">
+                <div className="product-category-badge">
+                  {getCategoriaLabel(producto.categoria)}
+                </div>
+                <h2 className="product-title">{producto.titulo}</h2>
+                <p className="product-attributes">{producto.atributos}</p>
+                
+                {/* Sección de precios con lógica de ofertas */}
+                <div className="price-section">
+                  {tieneOferta ? (
+                    <div className="price-with-offer">
+                      <span className="price-original">
+                        {formatPrice(getPrecioOriginal(producto))}
+                      </span>
+                      <span className="price-offer">
+                        {formatPrice(getPrecioFinal(producto))}
+                      </span>
+                      <div className="savings-badge">
+                        ¡Ahorras {formatPrice(getPrecioOriginal(producto) - getPrecioFinal(producto))}!
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="product-price">{formatPrice(getPrecioFinal(producto))}</div>
+                  )}
+                </div>
+                
+                <div className="product-buttons">
+                  <button 
+                    className="btn-detail"
+                    onClick={() => handleVerDetalle(producto)}
+                  >
+                    Ver detalle
+                  </button>
+                  <button 
+                    className={`btn-cart ${tieneOferta ? 'btn-cart-offer' : ''}`}
+                    onClick={() => handleAgregarCarrito(producto)}
+                  >
+                    {tieneOferta ? '🔥 ¡Aprovecha!' : 'Añadir al carrito'}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   )
