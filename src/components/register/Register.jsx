@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { showErrorToast, showSuccessToast } from '../../utils/toast';
-import { Link, useNavigate } from 'react-router-dom'
+import { useSearchParams ,Link, useNavigate } from 'react-router-dom'
+import './Register.css'
+import { registerUser } from '../../service/localStorage';
 import {
     validationRun,
     validationName,
@@ -12,6 +14,7 @@ import {
 } from './Validation'
 
 export default function Register() {
+    const navigate = useNavigate();
     const [run, setRun] = useState('');
     const [nombre, setNombre] = useState('');
     const [direccion, setDireccion] = useState('')
@@ -20,6 +23,8 @@ export default function Register() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState({})
+    const [searchParams] = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/home';
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,8 +75,13 @@ export default function Register() {
 
         setErrors(newErrors);
         if (isValid) {
+            const registrationResult = registerUser({ run, nombre, apellidos, direccion, email, password });
+            if (!registrationResult.success) {
+                showErrorToast(registrationResult.message); // Mostrar mensaje de error específico
+                return;
+            }
             showSuccessToast('Registro exitoso')
-            navigate('/home');
+            navigate(redirectTo);
             console.log('Formulario válido:', { run, nombre, apellidos, direccion, email, password });
         } else {
             const errorMessages = Object.values(newErrors)

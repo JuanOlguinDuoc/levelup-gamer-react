@@ -1,0 +1,289 @@
+/* Contenedor del slider */
+.carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+/* Personalización de los controles de slick */
+.carousel-container .slick-dots {
+  bottom: 20px;
+}
+
+.carousel-container .slick-dots li button:before {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+}
+
+.carousel-container .slick-dots li.slick-active button:before {
+  color: #00ffd5;
+  opacity: 1;
+}
+
+.carousel-container .slick-prev,
+.carousel-container .slick-next {
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+}
+
+.carousel-container .slick-prev {
+  left: 20px;
+}
+
+.carousel-container .slick-next {
+  right: 20px;
+}
+
+.carousel-container .slick-prev:before,
+.carousel-container .slick-next:before {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-container .slick-prev:hover:before,
+.carousel-container .slick-next:hover:before {
+  color: #00ffd5;
+}
+
+/* Cada slide */
+.slide {
+  position: relative;
+  outline: none;
+}
+
+/* Imagen */
+.slide-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.slide:hover .slide-image {
+  transform: scale(1.02);
+}
+
+/* Overlay de texto mejorado */
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(68, 27, 60, 0.6) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.slide:hover .slide-overlay {
+  opacity: 1;
+}
+
+.slide-content {
+  max-width: 600px;
+  text-align: center;
+}
+
+.slide-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  background: linear-gradient(45deg, #00ffd5, #c9fffb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: slideInUp 0.6s ease-out;
+}
+
+.slide-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  animation: slideInUp 0.7s ease-out;
+}
+
+.slide-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  animation: slideInUp 0.8s ease-out;
+}
+
+.slide-button {
+  background: linear-gradient(135deg, #4ecdc4, #00ffd5);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 255, 213, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: slideInUp 0.9s ease-out;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.slide-button:hover {
+  background: linear-gradient(135deg, #00ffd5, #4ecdc4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 255, 213, 0.5);
+}
+
+.slide-button:active {
+  transform: translateY(-1px);
+}
+
+/* Animaciones */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .slide-image { 
+    height: 250px; 
+  }
+  
+  .slide-title { 
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .slide-button { 
+    font-size: 0.9rem; 
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .carousel-container .slick-prev,
+  .carousel-container .slick-next {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .carousel-container .slick-prev {
+    left: 10px;
+  }
+  
+  .carousel-container .slick-next {
+    right: 10px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .slide-image { 
+    height: 350px; 
+  }
+  
+  .slide-title { 
+    font-size: 1.8rem; 
+  }
+  
+  .slide-button { 
+    font-size: 1rem; 
+    padding: 0.9rem 1.8rem; 
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .slide-image { 
+    height: 450px; 
+  }
+  
+  .slide-title { 
+    font-size: 2.2rem; 
+  }
+  
+  .slide-button { 
+    font-size: 1.1rem; 
+    padding: 1rem 2rem; 
+  }
+}
+
+@media (min-width: 1025px) {
+  .slide-image { 
+    height: 500px; 
+  }
+  
+  .slide-title { 
+    font-size: 2.5rem;
+    margin-bottom: 2rem; 
+  }
+  
+  .slide-button { 
+    font-size: 1.2rem; 
+    padding: 1.2rem 2.5rem; 
+  }
+}
+
+/* Efectos adicionales para el contenedor */
+.carousel-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(0, 255, 213, 0.1) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Mejoras para la accesibilidad */
+.slide-button:focus {
+  outline: 2px solid #00ffd5;
+  outline-offset: 2px;
+}
+
+.carousel-container .slick-slide {
+  transition: all 0.3s ease;
+}
+
+.carousel-container .slick-active .slide {
+  animation: fadeIn 0.5s ease-in;
+}

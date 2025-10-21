@@ -1,11 +1,37 @@
 .navbar {
-    background: #ac7ceb;
-    background: linear-gradient(0deg, rgba(172, 124, 235, .3) 0%, rgba(18, 2, 39, 1) 100%);
+    background: #0e011b;
+    box-shadow:
+        0 8px 16px rgba(23, 0, 47, 0.8),
+        0 4px 8px rgba(34, 1, 63, 0.9),
+        0 2px 4px rgba(20, 0, 34, 0.199);
 }
 
 /* Color del texto del brand (Level Up Gamer) */
 .navbar .navbar-brand {
     color: var(--color-acento) !important;
+}
+
+/* Estilos para el brand personalizado con logo */
+.navbar-brand-custom {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Estilos para el logo en el navbar */
+.navbar-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* Efecto hover para el logo */
+.navbar-brand-custom:hover .navbar-logo {
+    transform: scale(1.1);
+    filter: brightness(1.3) contrast(1.2);
 }
 
 /* Color de los enlaces del navbar */
@@ -32,4 +58,128 @@
 
 .container {
     color: aliceblue !important;
+}
+
+/* Estilos para los enlaces de autenticación */
+.nav-link-auth {
+    display: flex !important;
+    align-items: center !important;
+    height: 48px !important;
+    padding: 0.5rem 1rem !important;
+}
+
+/* Estilos para el enlace del carrito */
+.nav-link-cart {
+    display: flex !important;
+    align-items: center !important;
+    height: 48px !important;
+    padding: 0.5rem 1rem !important;
+    gap: 0.5rem !important;
+}
+
+/* Texto del carrito */
+.cart-text {
+    margin: 0 !important;
+    line-height: 1 !important;
+}
+
+/* Icono del carrito */
+.cart-icon {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Efecto hover para el icono del carrito */
+.nav-link-cart:hover .cart-icon {
+    transform: scale(1.1) !important;
+}
+
+.shopping-cart {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    align-self: center;
+}
+
+/* Contenedor principal de la sección derecha del navbar */
+.navbar-right-section {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+/* Contenedor para los elementos de sesión de usuario */
+.user-session-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    height: 48px !important;
+}
+
+/* Contenedor para los botones de autenticación */
+.auth-buttons-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    height: 48px !important;
+}
+
+/* Estilos para el botón de cerrar sesión */
+.nav-link-logout {
+    display: flex !important;
+    align-items: center !important;
+    height: 40px !important;
+    padding: 0.5rem 1rem !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+}
+
+.nav-link-logout:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Contenedor del avatar de usuario */
+.user-avatar-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid var(--color-acento) !important;
+    transition: all 0.3s ease !important;
+}
+
+.user-avatar-container:hover {
+    transform: scale(1.05) !important;
+    border-color: var(--color-boton-hover) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Avatar del usuario */
+.user-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+/* Mejoras para botones de auth */
+.nav-link-auth {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+}
+
+.nav-link-auth:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-1px) !important;
 }
