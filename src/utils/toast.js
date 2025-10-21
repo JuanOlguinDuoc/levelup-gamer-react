@@ -2,13 +2,13 @@ import { toast } from 'react-toastify'
 
 export const showSuccessToast = (message) => {
   toast.success(message, {
-    position: 'top-center',
-    autoClose: 3000,
+    position: 'top-right',
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    theme: 'colored',
+    theme: 'light',
   })
 }
 
