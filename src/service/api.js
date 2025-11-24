@@ -17,13 +17,11 @@ export const setAuthToken = (token) => {
     }
 };
 
-// interceptor para detectar 401 y cerrar sesión automáticamente
 api.interceptors.response.use(
   res => res,
   err => {
     if (err.response && err.response.status === 401) {
       setAuthToken(null);
-      // redirigir a login (ajusta la ruta si usas base diferente)
       window.location.href = '/login';
     }
     return Promise.reject(err);

@@ -600,6 +600,12 @@ export const isUserAdmin = () => {
   return role === 'administrador' || role === 'admin';
 };
 
+// Función para verificar si el usuario es vendedor
+export const isUserVendedor = () => {
+  const role = getUserRole();
+  return role === 'vendedor';
+};
+
 // Función para registrar un nuevo usuario
 export const registerUser = (userData) => {
   console.log('Datos recibidos para registro:', userData);
