@@ -215,9 +215,45 @@ const carrito = [];
 
 // Inicializar el localStorage
 
-localStorage.clear();
-localStorage.setItem('productos', JSON.stringify(productos));
-localStorage.setItem('carrito', JSON.stringify(carrito));
+// Initialize localStorage keys only if they don't exist to avoid wiping user data
+if (!localStorage.getItem('productos')) {
+  localStorage.setItem('productos', JSON.stringify(productos));
+}
+
+if (!localStorage.getItem('carrito')) {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+// Initialize derived collections if missing
+if (!localStorage.getItem('categorias')) {
+  const categorias = [...new Set(productos.map(p => p.categoria))];
+  localStorage.setItem('categorias', JSON.stringify(categorias));
+}
+
+if (!localStorage.getItem('plataformas')) {
+  const plataformas = [...new Set(productos.flatMap(p => p.plataforma || []))];
+  localStorage.setItem('plataformas', JSON.stringify(plataformas));
+}
+
+if (!localStorage.getItem('roles')) {
+  localStorage.setItem('roles', JSON.stringify(['admin', 'user']));
+}
+
+if (!localStorage.getItem('registeredUsers')) {
+  localStorage.setItem('registeredUsers', JSON.stringify([]));
+}
+
+// Initialize a persistent incremental ID for users to avoid very large timestamp-based IDs
+if (!localStorage.getItem('nextUserId')) {
+  localStorage.setItem('nextUserId', '1');
+}
+
+const getNextUserId = () => {
+  const current = parseInt(localStorage.getItem('nextUserId') || '1', 10);
+  const next = current + 1;
+  localStorage.setItem('nextUserId', String(next));
+  return current;
+}
 
 const productosRecuperados = JSON.parse(localStorage.getItem('productos'));
 
@@ -292,9 +328,135 @@ export const getProductosByCategoria = (categoria) => {
 }
 
 export const getCategorias = () => {
-  const productos = JSON.parse(localStorage.getItem('productos')) || []
-  const categorias = [...new Set(productos.map(producto => producto.categoria))]
-  return categorias
+  return JSON.parse(localStorage.getItem('categorias')) || []
+}
+
+// CRUD helpers for productos
+export const saveProductos = (productosArray) => {
+  localStorage.setItem('productos', JSON.stringify(productosArray));
+}
+
+export const getAllProductos = () => getProductos();
+
+export const createProducto = (producto) => {
+  const productos = getProductos();
+  const newProducto = { ...producto, id: Date.now() };
+  productos.push(newProducto);
+  saveProductos(productos);
+  return newProducto;
+}
+
+export const updateProducto = (id, changes) => {
+  const productos = getProductos();
+  const idx = productos.findIndex(p => p.id === parseInt(id));
+  if (idx === -1) return null;
+  productos[idx] = { ...productos[idx], ...changes };
+  saveProductos(productos);
+  return productos[idx];
+}
+
+export const deleteProducto = (id) => {
+  const productos = getProductos();
+  const filtered = productos.filter(p => p.id !== parseInt(id));
+  saveProductos(filtered);
+  return true;
+}
+
+// CRUD helpers for categorias
+export const getAllCategorias = () => JSON.parse(localStorage.getItem('categorias')) || [];
+
+export const createCategoria = (categoria) => {
+  const categorias = getAllCategorias();
+  if (!categorias.includes(categoria)) {
+    categorias.push(categoria);
+    localStorage.setItem('categorias', JSON.stringify(categorias));
+  }
+  return categorias;
+}
+
+export const deleteCategoria = (categoria) => {
+  const categorias = getAllCategorias();
+  const filtered = categorias.filter(c => c !== categoria);
+  localStorage.setItem('categorias', JSON.stringify(filtered));
+  // Also remove category from products (set to 'sin-categoria')
+  const productos = getProductos().map(p => p.categoria === categoria ? { ...p, categoria: 'sin-categoria' } : p);
+  saveProductos(productos);
+  return true;
+}
+
+// CRUD helpers for plataformas
+export const getAllPlataformas = () => JSON.parse(localStorage.getItem('plataformas')) || [];
+
+export const createPlataforma = (plataforma) => {
+  const list = getAllPlataformas();
+  if (!list.includes(plataforma)) {
+    list.push(plataforma);
+    localStorage.setItem('plataformas', JSON.stringify(list));
+  }
+  return list;
+}
+
+export const deletePlataforma = (plataforma) => {
+  const list = getAllPlataformas().filter(p => p !== plataforma);
+  localStorage.setItem('plataformas', JSON.stringify(list));
+  // Remove plataforma from products
+  const productos = getProductos().map(p => ({ ...p, plataforma: (p.plataforma || []).filter(x => x !== plataforma) }));
+  saveProductos(productos);
+  return true;
+}
+
+// CRUD helpers for roles
+export const getAllRoles = () => JSON.parse(localStorage.getItem('roles')) || ['admin', 'user'];
+
+export const createRole = (role) => {
+  const roles = getAllRoles();
+  if (!roles.includes(role)) {
+    roles.push(role);
+    localStorage.setItem('roles', JSON.stringify(roles));
+  }
+  return roles;
+}
+
+export const deleteRole = (role) => {
+  const roles = getAllRoles().filter(r => r !== role);
+  localStorage.setItem('roles', JSON.stringify(roles));
+  return true;
+}
+
+// CRUD helpers for registered users
+export const getAllUsers = () => JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+export const createUserAdmin = (userData) => {
+  const users = getAllUsers();
+  // Ensure compatibility with existing code that expects 'nombre', 'apellidos' and 'name'
+  const newUser = {
+    ...userData,
+    id: getNextUserId(),
+    registrationDate: new Date().toISOString(),
+    // keep both styles: firstName/lastName and nombre/apellidos
+    nombre: userData.firstName || userData.nombre || '',
+    apellidos: userData.lastName || userData.apellidos || '',
+    name: userData.firstName || userData.nombre || '',
+    role: userData.role || 'user'
+  };
+  users.push(newUser);
+  localStorage.setItem('registeredUsers', JSON.stringify(users));
+  return newUser;
+}
+
+export const updateUserAdmin = (id, changes) => {
+  const users = getAllUsers();
+  const idx = users.findIndex(u => u.id === parseInt(id));
+  if (idx === -1) return null;
+  users[idx] = { ...users[idx], ...changes };
+  localStorage.setItem('registeredUsers', JSON.stringify(users));
+  return users[idx];
+}
+
+export const deleteUserAdmin = (id) => {
+  const users = getAllUsers().filter(u => u.id !== parseInt(id));
+  localStorage.setItem('registeredUsers', JSON.stringify(users));
+  return true;
 }
 
 // Funciones para manejo de ofertas
@@ -354,13 +516,39 @@ export const debugOfertas = () => {
 
 // Funciones para manejo de sesión de usuario
 export const setUserSession = (userData) => {
+  // Normalizar campos del usuario que vienen del backend para la forma que usa el frontend
+  const normalized = {
+    id: userData?.id || null,
+    run: userData?.run || userData?.rut || userData?.id || '',
+    // backend usa firstName/lastName; frontend espera nombre/apellidos y name/apellido
+    nombre: userData?.firstName || userData?.name || userData?.nombre || '',
+    apellidos: userData?.lastName || userData?.apellidos || '',
+    name: userData?.firstName || userData?.name || userData?.nombre || '',
+    apellido: userData?.lastName || userData?.apellidos || '',
+    email: userData?.email || '',
+    role: userData?.role || '',
+    telefono: userData?.telefono || userData?.phone || '',
+    direccion: userData?.direccion || userData?.address || '',
+    departamento: userData?.departamento || '',
+    ciudad: userData?.ciudad || '',
+    region: userData?.region || '',
+    codigoPostal: userData?.codigoPostal || '',
+    indicacionesEntrega: userData?.indicacionesEntrega || '',
+    // Mantener cualquier dato original por compatibilidad
+    __raw: userData
+  };
+
   localStorage.setItem('isLoggedIn', 'true');
-  localStorage.setItem('currentUser', JSON.stringify(userData));
+  localStorage.setItem('currentUser', JSON.stringify(normalized));
+  // Notificar a la UI que la sesión cambió (para que componentes se re-rendericen)
+  try { window.dispatchEvent(new Event('authChanged')); } catch (e) { /* noop */ }
 }
 
 export const clearUserSession = () => {
   localStorage.setItem('isLoggedIn', 'false');
   localStorage.removeItem('currentUser');
+  // Notificar a la UI que la sesión cambió
+  try { window.dispatchEvent(new Event('authChanged')); } catch (e) { /* noop */ }
 }
 
 export const isUserLoggedIn = () => {
@@ -370,37 +558,46 @@ export const isUserLoggedIn = () => {
 export const getCurrentUser = () => {
   if (isUserLoggedIn()) {
     const sessionUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-
     if (!sessionUser) return null;
 
-    // Buscar el usuario completo en registeredUsers usando el email
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-    console.log('Buscando usuario:', sessionUser.email);
-    console.log('Usuarios registrados:', registeredUsers);
-
-    const fullUser = registeredUsers.find(user => user.email === sessionUser.email);
-    console.log('Usuario encontrado:', fullUser);
-
-    if (fullUser) {
-      // Devolver el usuario completo con todos sus datos de registro
-      const completeUser = {
-        ...fullUser,
-        // Agregar alias para compatibilidad
-        apellido: fullUser.apellidos, // Mapear apellidos -> apellido
-        name: fullUser.nombre, // Mapear nombre -> name para compatibilidad
-        // Mantener también los datos de sesión (como loginTime)
-        loginTime: sessionUser.loginTime
-      };
-      console.log('Usuario completo devuelto:', completeUser);
-      return completeUser;
+    // Si ya es un objeto normalizado guardado por setUserSession, devolverlo directamente
+    if (sessionUser.nombre || sessionUser.email) {
+      return sessionUser;
     }
 
-    // Si no se encuentra en registeredUsers, devolver los datos básicos de sesión
-    // (esto cubre casos como admin@duoc.cl que no está en registeredUsers)
-    console.log('Usuario no encontrado en registeredUsers, devolviendo datos de sesión');
+    // Fallback: intentar buscar en registeredUsers por email
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    const fullUser = registeredUsers.find(user => user.email === sessionUser.email);
+    if (fullUser) {
+      return {
+        ...fullUser,
+        apellido: fullUser.apellidos,
+        name: fullUser.nombre,
+        loginTime: sessionUser.loginTime
+      };
+    }
+
     return sessionUser;
   }
   return null;
+};
+
+// Función para obtener el rol del usuario actual
+export const getUserRole = () => {
+  const user = getCurrentUser();
+  if (!user) return null;
+  
+  // El rol puede venir del objeto role completo o como string
+  if (typeof user.role === 'object' && user.role !== null) {
+    return user.role.name || user.role.id || null;
+  }
+  return user.role || null;
+};
+
+// Función para verificar si el usuario es administrador
+export const isUserAdmin = () => {
+  const role = getUserRole();
+  return role === 'administrador' || role === 'admin';
 };
 
 // Función para registrar un nuevo usuario
@@ -432,7 +629,7 @@ export const registerUser = (userData) => {
   // Agregar nuevo usuario
   const newUser = {
     ...userData,
-    id: Date.now(), // ID único basado en timestamp
+  id: getNextUserId(),
     registrationDate: new Date().toISOString(),
     role: 'user' // Por defecto todos son usuarios normales
   };

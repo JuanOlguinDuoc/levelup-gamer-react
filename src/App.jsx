@@ -8,7 +8,6 @@ import './utils/colors.css'
 import './service/localStorage'
 import Swal from "sweetalert2";
 
-
 import Login from './components/login/Login'
 import Register from './components/register/Register'
 import AboutUs from './components/aboutUs/AboutUs';
@@ -23,7 +22,8 @@ import ShoppingCart from './components/shoppingCart/ShoppingCart';
 import Checkout from './components/checkout/Checkout';
 import Payment from './components/payment/Payment';
 import Offer from './components/offer/Offer';
-
+import Admin from './components/admin';
+import ListarUsuarios from './components/prueba/ListarUsuarios';
 import './App.css'
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
       <Routes>
         {/* Redirige la raíz "/" al home */}
         <Route path="/home" element={<Home />} />
+        <Route path="/prueba" element={<ListarUsuarios/>}/>
         <Route path="/" element={<Navigate to="/home" />} />
 
         <Route path='/offer' element={<Offer />} />
@@ -51,6 +52,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/product/:id" element={<DetailProduct />} />
         <Route path="/notfound" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/notfound" />} />

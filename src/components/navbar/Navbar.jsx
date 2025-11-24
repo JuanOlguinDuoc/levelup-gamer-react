@@ -1,5 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import { clearUserSession, isUserLoggedIn } from '../../service/localStorage.js';
+import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +10,13 @@ import { confirmLogout } from '../../utils/alert.js';
 
 export default function CustomNavbar() {
   const navigate = useNavigate();
-  const isLoggedIn = isUserLoggedIn();
+  const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn());
+
+  useEffect(() => {
+    const handler = () => setIsLoggedIn(isUserLoggedIn());
+    window.addEventListener('authChanged', handler);
+    return () => window.removeEventListener('authChanged', handler);
+  }, []);
 
   const handleLogout = () => {
     confirmLogout(navigate); // ← Pasar navigate como parámetro
