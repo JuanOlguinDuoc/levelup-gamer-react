@@ -1,0 +1,255 @@
+.vendedor-wrapper {
+  padding-top: 80px; /* espacio para no quedar detrás del navbar */
+}
+
+/* small adjustments */
+.vendedor-wrapper .tab-content {
+  background: rgba(255,255,255,0.95);
+}
+
+/* layout for action rows: inputs left, big button right */
+.vendedor-action-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.vendedor-action-inputs {
+  display: grid;
+  grid-template-columns: 1fr 120px 180px 1fr;
+  gap: 12px;
+  flex: 1 1 auto;
+}
+
+.vendedor-action-btn {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  min-width: 220px; /* keep previous desktop minimum */
+}
+
+.vendedor-action-btn .btn-lg {
+  width: 100%;
+  background: linear-gradient(90deg,#1cc5a8,#00d4a6 60%);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Fixed width for delete buttons in list-group items */
+.list-group-item .btn {
+  width: 220px;
+  max-width: 220px;
+  border-radius: 10px;
+}
+
+/* Table last column button sizing and alignment */
+.table td:last-child {
+  width: 240px;
+  text-align: center;
+}
+.table td:last-child .btn {
+  width: 200px;
+  max-width: 200px;
+}
+
+/* Make sure long content in first cells wraps and doesn't resize the action column */
+.table td {
+  word-break: break-word;
+}
+
+vendedor-container {
+    margin-top: 3rem;
+}
+
+.btn-primary-vendedor{
+  background: linear-gradient(45deg, var(--color-primario-oscuro-vendedor), var(--color-boton-hover-vendedor));
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgb(173, 114, 255);
+}
+
+.btn-primary-vendedor:hover {
+  background: linear-gradient(45deg, #a68cfc, #D9C5FF);
+  transform: translateY(-2px);
+  color: #370f49;
+  box-shadow: 0 6px 12px rgba(84, 89, 172, 0.3);
+}
+
+.btn-eliminar {
+  align-self: flex-start;
+  padding: 1rem 2rem;
+  background: rgba(255, 0, 0, 0.3);
+  /* use an explicit red-to-deep-red gradient so it doesn't pick up the global
+    --color-acento-oscuro (which in this project is teal/green) */
+  background: linear-gradient(135deg, #5f1a1a, #ff0000);
+  background-color: #5f1a1a; /* fallback solid color */
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-eliminar {
+  width: 140px;
+  max-width: 140px;
+  padding: 0.5rem 1rem; /* reduce vertical and horizontal padding */
+  align-self: center; /* center inside flex rows */
+  font-size: 0.95rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.list-group-item .btn.btn-eliminar,
+.table td:last-child .btn.btn-eliminar {
+  width: 140px;
+  max-width: 140px;
+}
+
+.btn-eliminar[disabled] {
+  opacity: 0.7;
+}
+
+.btn-eliminar:hover {
+  background: linear-gradient(135deg, #ff4c4c, #ff0000);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+}
+
+.btn-editar {
+  align-self: flex-start;
+  padding: 1rem 2rem;
+  background: rgba(0, 255, 85, 0.3);
+  background: linear-gradient(135deg, #1a5f32, #00ff7b);
+  background-color: #1a5f26; 
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 21, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-editar {
+  width: 140px;
+  max-width: 140px;
+  padding: 0.5rem 1rem; /* reduce vertical and horizontal padding */
+  align-self: center; /* center inside flex rows */
+  font-size: 0.95rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.list-group-item .btn.btn-editar,
+.table td:last-child .btn.btn-editar {
+  width: 140px;
+  max-width: 140px;
+}
+
+.btn-editar[disabled] {
+  opacity: 0.7;
+}
+
+.btn-editar:hover {
+  background: linear-gradient(135deg, #4caf6d, #388e58);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
+}
+.nav-color {
+  color: var(--color-boton-active)
+}
+
+.nav-color:hover {
+  background: linear-gradient(45deg, var(--color-primario-oscuro-vendedor), var(--color-boton-hover-vendedor));
+  color: white;
+}
+
+/* User create form grid */
+.user-create-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.user-create-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.user-create-row .form-control,
+.user-create-row .form-select {
+  min-height: 44px;
+}
+.user-create-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media (max-width: 800px) {
+  .user-create-row {
+    grid-template-columns: 1fr;
+  }
+  .vendedor-action-btn {
+    width: auto;
+  }
+}
+
+/* User row action buttons: align like roles (inline, small gap) and override table sizing */
+
+.user-row-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end; /* keep actions to the right like roles */
+}
+
+.table .user-row-actions .btn {
+  /* match roles sizing but avoid forcing layout on table cells */
+  min-width: 120px;
+  width: auto;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .table .user-row-actions {
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .table .user-row-actions .btn {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}

@@ -4,10 +4,10 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/navbar/Navbar'
+import { isUserVendedor } from './service/localStorage'
 import './utils/colors.css'
 import './service/localStorage'
 import Swal from "sweetalert2";
-
 
 import Login from './components/login/Login'
 import Register from './components/register/Register'
@@ -23,7 +23,11 @@ import ShoppingCart from './components/shoppingCart/ShoppingCart';
 import Checkout from './components/checkout/Checkout';
 import Payment from './components/payment/Payment';
 import Offer from './components/offer/Offer';
-
+import Admin from './components/admin';
+import Vendedor from './components/vendedor';
+import VendedorRoute from './components/VendedorRoute';
+import RoleBasedRedirect from './components/RoleBasedRedirect';
+import ListarUsuarios from './components/prueba/ListarUsuarios';
 import './App.css'
 
 function App() {
@@ -36,22 +40,32 @@ function App() {
 
       {/* Rutas principales */}
       <Routes>
-        {/* Redirige la raíz "/" al home */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Navigate to="/home" />} />
-
-        <Route path='/offer' element={<Offer />} />
-        <Route path='/payment' element={<Payment />} />
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/shoppingcart' element={<ShoppingCart />} />
+        {/* Redirige la raíz "/" al home o vendedor según el rol */}
+        <Route path="/" element={<RoleBasedRedirect />} />
+        
+        {/* Rutas protegidas - NO accesibles para vendedores */}
+        <Route path="/home" element={<VendedorRoute><Home /></VendedorRoute>} />
+        <Route path="/prueba" element={<VendedorRoute><ListarUsuarios/></VendedorRoute>}/>
+        <Route path='/offer' element={<VendedorRoute><Offer /></VendedorRoute>} />
+        <Route path='/payment' element={<VendedorRoute><Payment /></VendedorRoute>} />
+        <Route path='/checkout' element={<VendedorRoute><Checkout /></VendedorRoute>} />
+        <Route path='/shoppingcart' element={<VendedorRoute><ShoppingCart /></VendedorRoute>} />
+        <Route path="/blog/:slug" element={<VendedorRoute><DetailBlog /></VendedorRoute>} />
+        <Route path="/contact" element={<VendedorRoute><Contact /></VendedorRoute>} />
+        <Route path="/blog" element={<VendedorRoute><Blog /></VendedorRoute>} />
+        <Route path="/aboutus" element={<VendedorRoute><AboutUs /></VendedorRoute>} />
+        <Route path="/products" element={<VendedorRoute><Products /></VendedorRoute>} />
+        <Route path="/product/:id" element={<VendedorRoute><DetailProduct /></VendedorRoute>} />
+        
+        {/* Rutas de autenticación - accesibles para todos */}
         <Route path="/login" element={<Login />} />
-        <Route path="/blog/:slug" element={<DetailBlog />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/blog" element={<Blog />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/product/:id" element={<DetailProduct />} />
+        
+        {/* Rutas de administración y vendedor */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/vendedor" element={<Vendedor />} />
+        
+        {/* Ruta 404 */}
         <Route path="/notfound" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/notfound" />} />
       </Routes>

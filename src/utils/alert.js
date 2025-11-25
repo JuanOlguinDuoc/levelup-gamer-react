@@ -185,6 +185,27 @@ export const confirmDeleteProduct = (onConfirm) => {
     });
 };
 
+// Reusable confirm dialog for generic actions
+export const confirmAction = ({ title = '¿Estás seguro?', text = '', confirmText = 'Sí', cancelText = 'Cancelar', icon = 'warning' } = {}) => {
+  return Swal.fire({
+    title,
+    text,
+    icon,
+    showCancelButton: true,
+    confirmButtonColor: '#5459AC',
+    cancelButtonColor: '#52357B',
+    confirmButtonText: confirmText,
+    cancelButtonText: cancelText,
+    background: '#0e011b',
+    color: '#F5F5F5',
+    customClass: {
+      popup: 'dark-popup',
+      title: 'dark-title',
+      content: 'dark-content'
+    }
+  }).then(result => result.isConfirmed)
+}
+
 export const successAlert = (navigate) => {
     Swal.fire({
         title: "¡Comprado!",
