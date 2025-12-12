@@ -28,6 +28,7 @@ import Vendedor from './components/vendedor';
 import VendedorRoute from './components/VendedorRoute';
 import RoleBasedRedirect from './components/RoleBasedRedirect';
 import ListarUsuarios from './components/prueba/ListarUsuarios';
+import HolaMundo from './components/HolaMundo.jsx'
 import './App.css'
 
 function App() {
@@ -56,7 +57,8 @@ function App() {
         <Route path="/aboutus" element={<VendedorRoute><AboutUs /></VendedorRoute>} />
         <Route path="/products" element={<VendedorRoute><Products /></VendedorRoute>} />
         <Route path="/product/:id" element={<VendedorRoute><DetailProduct /></VendedorRoute>} />
-        
+        <Route path="/holaMundo" element={<HolaMundo />} />
+
         {/* Rutas de autenticación - accesibles para todos */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
