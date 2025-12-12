@@ -5,8 +5,10 @@
 
   /* Colores primarios / botones */
   --color-primario-oscuro: #5459AC;
+  --color-primario-oscuro-admin: #240954;
   --color-boton-normal: #c4a9ff;
   --color-boton-hover: #66C2FF;
+  --color-boton-hover-admin: #7d6bd6;
   --color-boton-active: #ebd4b0;
 
   /* Acentos / resaltar */

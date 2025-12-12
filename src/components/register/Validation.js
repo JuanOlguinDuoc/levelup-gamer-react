@@ -16,7 +16,7 @@ export function validationName(nombre) {
 }
 
 export function validationApellidos(apellidos) {
-    const apellidosRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    const apellidosRegex = /^[A-Za-z]+(| )[A-Za-z]+$/;
     return apellidosRegex.test(apellidos)
 }
 

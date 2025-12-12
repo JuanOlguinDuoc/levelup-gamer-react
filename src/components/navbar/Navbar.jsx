@@ -1,5 +1,6 @@
 import Container from 'react-bootstrap/Container';
-import { clearUserSession, isUserLoggedIn } from '../../service/localStorage.js';
+import { clearUserSession, isUserLoggedIn, isUserAdmin, isUserVendedor } from '../../service/localStorage.js';
+import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +10,19 @@ import { confirmLogout } from '../../utils/alert.js';
 
 export default function CustomNavbar() {
   const navigate = useNavigate();
-  const isLoggedIn = isUserLoggedIn();
+  const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn());
+  const [isAdmin, setIsAdmin] = useState(isUserAdmin());
+  const [isVendedor, setIsVendedor] = useState(isUserVendedor());
+
+  useEffect(() => {
+    const handler = () => {
+      setIsLoggedIn(isUserLoggedIn());
+      setIsAdmin(isUserAdmin());
+      setIsVendedor(isUserVendedor());
+    };
+    window.addEventListener('authChanged', handler);
+    return () => window.removeEventListener('authChanged', handler);
+  }, []);
 
   const handleLogout = () => {
     confirmLogout(navigate); // ← Pasar navigate como parámetro
@@ -29,21 +42,25 @@ export default function CustomNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/products">Productos</Nav.Link>
-            <Nav.Link as={Link} to="/aboutus">Sobre Nosotros</Nav.Link>
-            <Nav.Link as={Link} to="/contact">Contacto</Nav.Link>
-            <Nav.Link as={Link} to="/blog">Blogs</Nav.Link>
-            <Nav.Link as={Link} to="/offer">Ofertas</Nav.Link>
+            {!isVendedor && <Nav.Link as={Link} to="/products">Productos</Nav.Link>}
+            {!isVendedor && <Nav.Link as={Link} to="/aboutus">Sobre Nosotros</Nav.Link>}
+            {!isVendedor && <Nav.Link as={Link} to="/contact">Contacto</Nav.Link>}
+            {!isVendedor && <Nav.Link as={Link} to="/blog">Blogs</Nav.Link>}
+            {!isVendedor && <Nav.Link as={Link} to="/offer">Ofertas</Nav.Link>}
+            {isAdmin && <Nav.Link as={Link} to="/admin">Administración</Nav.Link>}
+            {isVendedor && <Nav.Link as={Link} to="/vendedor">Vendedor</Nav.Link>}
           </Nav>
           <Nav className="navbar-right-section">
-            {/* Carrito siempre visible */}
-            <Nav.Link as={Link} to="/shoppingcart" className="nav-link-cart">
-              <img
-                src="/images/icons/trolley-cart.png"
-                alt="Shopping Cart Icon"
-                className="cart-icon"
-              />
-            </Nav.Link>
+            {/* Carrito visible solo para usuarios que NO son vendedores */}
+            {!isVendedor && (
+              <Nav.Link as={Link} to="/shoppingcart" className="nav-link-cart">
+                <img
+                  src="/images/icons/trolley-cart.png"
+                  alt="Shopping Cart Icon"
+                  className="cart-icon"
+                />
+              </Nav.Link>
+            )}
 
             {isLoggedIn ? (
               // Si hay sesión iniciada, mostrar "Cerrar Sesión" e icono de usuario

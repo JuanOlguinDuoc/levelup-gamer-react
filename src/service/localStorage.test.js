@@ -331,7 +331,19 @@ describe('localStorage Functions Tests', () => {
             setUserSession(mockUserData);
             
             expect(localStorage.setItem).toHaveBeenCalledWith('isLoggedIn', 'true');
-            expect(localStorage.setItem).toHaveBeenCalledWith('currentUser', JSON.stringify(mockUserData));
+            
+            // Verificar que se llama setItem para currentUser (sin verificar contenido exacto)
+            // porque la función normaliza los datos internamente
+            expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+            const secondCall = localStorage.setItem.mock.calls[1];
+            expect(secondCall[0]).toBe('currentUser');
+            
+            // Verificar que el objeto guardado contiene los datos originales normalizados
+            const savedUserData = JSON.parse(secondCall[1]);
+            expect(savedUserData.email).toBe('test@duoc.cl');
+            expect(savedUserData.nombre).toBe('Test User');
+            expect(savedUserData.name).toBe('Test User'); // Campo normalizado
+            expect(savedUserData.__raw).toEqual(mockUserData); // Datos originales
         });
     });
 
@@ -419,7 +431,15 @@ describe('localStorage Functions Tests', () => {
             
             expect(() => setUserSession(datosIncompletos)).not.toThrow();
             expect(localStorage.setItem).toHaveBeenCalledWith('isLoggedIn', 'true');
-            expect(localStorage.setItem).toHaveBeenCalledWith('currentUser', JSON.stringify(datosIncompletos));
+            
+            // Verificar que se normaliza el objeto, no se guarda tal como viene
+            expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+            const secondCall = localStorage.setItem.mock.calls[localStorage.setItem.mock.calls.length - 1];
+            expect(secondCall[0]).toBe('currentUser');
+            
+            const savedUserData = JSON.parse(secondCall[1]);
+            expect(savedUserData.nombre).toBe('Juan');
+            expect(savedUserData.__raw).toEqual(datosIncompletos);
         });
 
         it('setUserSession con tipos de datos incorrectos', () => {

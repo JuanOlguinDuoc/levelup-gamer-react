@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BOOTSTRAP_DOCUMENTATION.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="uso-de-bootstrap-en-level-up-gamer-react">Uso de Bootstrap en Level Up Gamer React</h1>
+<h2 id="resumen">Resumen</h2>
+<p>Este proyecto utiliza <strong>Bootstrap 5.3.8</strong> junto con <strong>React Bootstrap 2.10.10</strong> para proporcionar estilos y componentes de interfaz de usuario responsivos y modernos.</p>
+<h2 id="configuraci%C3%B3n-e-instalaci%C3%B3n">Configuración e Instalación</h2>
+<h3 id="dependencias-instaladas">Dependencias Instaladas</h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"bootstrap"</span>: <span class="hljs-string">"^5.3.8"</span>,
+  <span class="hljs-attr">"react-bootstrap"</span>: <span class="hljs-string">"^2.10.10"</span>
+}
+</div></code></pre>
+<h3 id="configuraci%C3%B3n">Configuración</h3>
+<p>Bootstrap se configura de manera global en el archivo principal de la aplicación:</p>
+<p><strong>📁 <code>src/App.jsx</code></strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> <span class="hljs-string">'bootstrap/dist/css/bootstrap.min.css'</span>;
+</div></code></pre>
+<p>Esta importación incluye todos los estilos CSS de Bootstrap 5 en toda la aplicación.</p>
+<h2 id="implementaci%C3%B3n">Implementación</h2>
+<h3 id="enfoque-h%C3%ADbrido">Enfoque Híbrido</h3>
+<p>El proyecto utiliza un <strong>enfoque híbrido</strong> que combina:</p>
+<ol>
+<li><strong>React Bootstrap Components</strong>: Para componentes complejos como navegación</li>
+<li><strong>CSS personalizado</strong>: Para estilos específicos del proyecto</li>
+<li><strong>Clases Bootstrap nativas</strong>: Para layouts y utilidades</li>
+</ol>
+<h2 id="ejemplos-de-uso">Ejemplos de Uso</h2>
+<h3 id="1-react-bootstrap-components">1. React Bootstrap Components</h3>
+<h4 id="navbar-component">Navbar Component</h4>
+<p><strong>📁 <code>src/components/navbar/Navbar.jsx</code></strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> Container <span class="hljs-keyword">from</span> <span class="hljs-string">'react-bootstrap/Container'</span>;
+<span class="hljs-keyword">import</span> Nav <span class="hljs-keyword">from</span> <span class="hljs-string">'react-bootstrap/Nav'</span>;
+<span class="hljs-keyword">import</span> Navbar <span class="hljs-keyword">from</span> <span class="hljs-string">'react-bootstrap/Navbar'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CustomNavbar</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Navbar</span> <span class="hljs-attr">expand</span>=<span class="hljs-string">"lg"</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"navbar"</span> <span class="hljs-attr">fixed</span>=<span class="hljs-string">"top"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Container</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Navbar.Brand</span> <span class="hljs-attr">as</span>=<span class="hljs-string">{Link}</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/home"</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"navbar-brand-custom"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">img</span>
+            <span class="hljs-attr">src</span>=<span class="hljs-string">"/images/logos/logo.png"</span>
+            <span class="hljs-attr">alt</span>=<span class="hljs-string">"Level Up Gamer Logo"</span>
+            <span class="hljs-attr">className</span>=<span class="hljs-string">"navbar-logo"</span>
+          /&gt;</span>
+          Level Up Gamer
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Navbar.Brand</span>&gt;</span>
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">Navbar.Toggle</span> <span class="hljs-attr">aria-controls</span>=<span class="hljs-string">"basic-navbar-nav"</span> /&gt;</span>
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">Navbar.Collapse</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"basic-navbar-nav"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Nav</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"me-auto"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Nav.Link</span> <span class="hljs-attr">as</span>=<span class="hljs-string">{Link}</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/products"</span>&gt;</span>Productos<span class="hljs-tag">&lt;/<span class="hljs-name">Nav.Link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Nav.Link</span> <span class="hljs-attr">as</span>=<span class="hljs-string">{Link}</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/aboutus"</span>&gt;</span>Sobre Nosotros<span class="hljs-tag">&lt;/<span class="hljs-name">Nav.Link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Nav.Link</span> <span class="hljs-attr">as</span>=<span class="hljs-string">{Link}</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/contact"</span>&gt;</span>Contacto<span class="hljs-tag">&lt;/<span class="hljs-name">Nav.Link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Nav.Link</span> <span class="hljs-attr">as</span>=<span class="hljs-string">{Link}</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/blog"</span>&gt;</span>Blogs<span class="hljs-tag">&lt;/<span class="hljs-name">Nav.Link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Nav.Link</span> <span class="hljs-attr">as</span>=<span class="hljs-string">{Link}</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/offer"</span>&gt;</span>Ofertas<span class="hljs-tag">&lt;/<span class="hljs-name">Nav.Link</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Nav</span>&gt;</span>
+          
+          <span class="hljs-tag">&lt;<span class="hljs-name">Nav</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"navbar-right-section"</span>&gt;</span>
+            {/* Contenido adicional del navbar */}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Nav</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Navbar.Collapse</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Container</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Navbar</span>&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p><strong>Componentes React Bootstrap utilizados:</strong></p>
+<ul>
+<li><code>Container</code>: Contenedor responsivo</li>
+<li><code>Navbar</code>: Componente principal de navegación</li>
+<li><code>Navbar.Brand</code>: Marca/logo de la aplicación</li>
+<li><code>Navbar.Toggle</code>: Botón hamburguesa para móviles</li>
+<li><code>Navbar.Collapse</code>: Contenido colapsable del navbar</li>
+<li><code>Nav</code>: Contenedor de navegación</li>
+<li><code>Nav.Link</code>: Enlaces de navegación</li>
+</ul>
+<h3 id="2-clases-css-bootstrap-personalizadas">2. Clases CSS Bootstrap Personalizadas</h3>
+<h4 id="formularios">Formularios</h4>
+<p><strong>📁 <code>src/components/contact/Contact.jsx</code></strong></p>
+<pre class="hljs"><code><div>&lt;form onSubmit={handleSubmit} className=<span class="hljs-string">"contact-form"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">"nombre"</span>&gt;</span>Nombre:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"nombre"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"nombre"</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">{formData.nombre}</span>
+      <span class="hljs-attr">onChange</span>=<span class="hljs-string">{handleChange}</span>
+      <span class="hljs-attr">required</span>
+    /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">htmlFor</span>=<span class="hljs-string">"email"</span>&gt;</span>Email:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"email"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">{formData.email}</span>
+      <span class="hljs-attr">onChange</span>=<span class="hljs-string">{handleChange}</span>
+      <span class="hljs-attr">required</span>
+    /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"btn"</span>&gt;</span>
+    Enviar Mensaje
+  <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/form&gt;
+</span></div></code></pre>
+<h4 id="botones">Botones</h4>
+<p><strong>📁 <code>src/components/blog/Blog.jsx</code></strong></p>
+<pre class="hljs"><code><div>&lt;Link
+  to={<span class="hljs-string">`/blog/<span class="hljs-subst">${blog.id}</span>`</span>}
+  className=<span class="hljs-string">"btn"</span>
+  onClick={() =&gt; scrollToTop()}
+&gt;
+  Leer más
+&lt;<span class="hljs-regexp">/Link&gt;
+</span></div></code></pre>
+<h4 id="contenedores-y-layouts">Contenedores y Layouts</h4>
+<p><strong>📁 <code>src/components/detailProduct/DetailProduct.jsx</code></strong></p>
+<pre class="hljs"><code><div>&lt;div className=<span class="hljs-string">"detail-container"</span>&gt;
+  {<span class="hljs-comment">/* Contenido del producto */</span>}
+  &lt;div className=<span class="hljs-string">"offer-badge-detail"</span>&gt;
+    {descuento}% OFF
+  &lt;<span class="hljs-regexp">/div&gt;
+  
+  &lt;div className="savings-badge-detail"&gt;
+    Ahorras ${formatPrice(ahorros)}
+  &lt;/</span>div&gt;
+&lt;<span class="hljs-regexp">/div&gt;
+</span></div></code></pre>
+<h3 id="3-estilos-css-personalizados-con-bootstrap">3. Estilos CSS Personalizados con Bootstrap</h3>
+<h4 id="navbar-styles">Navbar Styles</h4>
+<p><strong>📁 <code>src/components/navbar/navbar.css</code></strong></p>
+<pre class="hljs"><code><div><span class="hljs-selector-class">.navbar</span> {
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#0e011b</span>;
+    <span class="hljs-attribute">box-shadow</span>:
+        <span class="hljs-number">0</span> <span class="hljs-number">8px</span> <span class="hljs-number">16px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">23</span>, <span class="hljs-number">0</span>, <span class="hljs-number">47</span>, <span class="hljs-number">0.8</span>),
+        <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-number">8px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">34</span>, <span class="hljs-number">1</span>, <span class="hljs-number">63</span>, <span class="hljs-number">0.9</span>),
+        <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">4px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-number">34</span>, <span class="hljs-number">0.199</span>);
+}
+
+<span class="hljs-comment">/* Personalización del brand de Bootstrap */</span>
+<span class="hljs-selector-class">.navbar</span> <span class="hljs-selector-class">.navbar-brand</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--color-acento) <span class="hljs-meta">!important</span>;
+}
+
+<span class="hljs-selector-class">.navbar-brand-custom</span> {
+    <span class="hljs-attribute">display</span>: flex <span class="hljs-meta">!important</span>;
+    <span class="hljs-attribute">align-items</span>: center <span class="hljs-meta">!important</span>;
+    <span class="hljs-attribute">gap</span>: <span class="hljs-number">0.5rem</span> <span class="hljs-meta">!important</span>;
+    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease <span class="hljs-meta">!important</span>;
+}
+
+<span class="hljs-comment">/* Personalización de los enlaces de navegación */</span>
+<span class="hljs-selector-class">.navbar</span> <span class="hljs-selector-class">.nav-link</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--color-acento) <span class="hljs-meta">!important</span>;
+}
+
+<span class="hljs-selector-class">.navbar</span> <span class="hljs-selector-class">.nav-link</span><span class="hljs-selector-pseudo">:hover</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--color-boton-normal) <span class="hljs-meta">!important</span>;
+}
+</div></code></pre>
+<h2 id="patrones-de-uso-identificados">Patrones de Uso Identificados</h2>
+<h3 id="1-componentes-react-bootstrap">1. Componentes React Bootstrap</h3>
+<ul>
+<li><strong>Navbar</strong>: Navegación principal con componentes React Bootstrap</li>
+<li><strong>Container</strong>: Para layouts responsivos</li>
+<li><strong>Nav y Nav.Link</strong>: Para sistemas de navegación</li>
+</ul>
+<h3 id="2-clases-css-personalizadas">2. Clases CSS Personalizadas</h3>
+<ul>
+<li><strong>form-group</strong>: Para agrupar elementos de formulario</li>
+<li><strong>btn</strong>: Clase personalizada para botones (no usa btn de Bootstrap)</li>
+<li><strong>container</strong>: Contenedores personalizados para layouts específicos</li>
+</ul>
+<h3 id="3-metodolog%C3%ADa-de-estilos">3. Metodología de Estilos</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Patrón común: Sobreescribir estilos de Bootstrap */</span>
+<span class="hljs-selector-class">.navbar</span> <span class="hljs-selector-class">.nav-link</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--color-acento) <span class="hljs-meta">!important</span>;
+}
+
+<span class="hljs-comment">/* Usar variables CSS personalizadas */</span>
+<span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-attribute">--color-acento</span>: #valor;
+    <span class="hljs-attribute">--color-boton-normal</span>: #valor;
+}
+</div></code></pre>
+<h2 id="caracter%C3%ADsticas-principales">Características Principales</h2>
+<h3 id="%E2%9C%85-ventajas-del-enfoque-actual">✅ Ventajas del Enfoque Actual</h3>
+<ol>
+<li><strong>Flexibilidad</strong>: Combina componentes React Bootstrap con estilos personalizados</li>
+<li><strong>Responsivo</strong>: Hereda la responsividad de Bootstrap 5</li>
+<li><strong>Consistencia</strong>: Mantiene patrones de diseño coherentes</li>
+<li><strong>Mantenibilidad</strong>: Separación clara entre componentes y estilos</li>
+</ol>
+<h3 id="%E2%9A%A0%EF%B8%8F-consideraciones">⚠️ Consideraciones</h3>
+<ol>
+<li><strong>CSS Personalizado</strong>: Muchos estilos no usan las clases utility de Bootstrap</li>
+<li><strong>Selectividad</strong>: Solo se usan algunos componentes de React Bootstrap</li>
+<li><strong>Sobreescrituras</strong>: Uso frecuente de <code>!important</code> para sobreescribir estilos de Bootstrap</li>
+</ol>
+<h2 id="componentes-bootstrap-utilizados">Componentes Bootstrap Utilizados</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Ubicación</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Navbar</code></td>
+<td><code>src/components/navbar/</code></td>
+<td>Navegación principal</td>
+</tr>
+<tr>
+<td><code>Container</code></td>
+<td><code>src/components/navbar/</code></td>
+<td>Layout responsivo</td>
+</tr>
+<tr>
+<td><code>Nav</code></td>
+<td><code>src/components/navbar/</code></td>
+<td>Enlaces de navegación</td>
+</tr>
+<tr>
+<td><code>Nav.Link</code></td>
+<td><code>src/components/navbar/</code></td>
+<td>Enlaces individuales</td>
+</tr>
+</tbody>
+</table>
+<h2 id="clases-css-comunes">Clases CSS Comunes</h2>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.form-group</code></td>
+<td>Personalizada</td>
+<td>Agrupación de elementos de formulario</td>
+</tr>
+<tr>
+<td><code>.btn</code></td>
+<td>Personalizada</td>
+<td>Botones personalizados</td>
+</tr>
+<tr>
+<td><code>.container</code></td>
+<td>Personalizada</td>
+<td>Contenedores de layout</td>
+</tr>
+<tr>
+<td><code>.card</code></td>
+<td>Personalizada</td>
+<td>Tarjetas de contenido</td>
+</tr>
+<tr>
+<td><code>.badge</code></td>
+<td>Personalizada</td>
+<td>Badges informativos</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recomendaciones">Recomendaciones</h2>
+<h3 id="para-desarrollo-futuro">Para Desarrollo Futuro</h3>
+<ol>
+<li><strong>Consistencia</strong>: Considerar usar más clases utility de Bootstrap</li>
+<li><strong>Componentes</strong>: Expandir el uso de React Bootstrap components</li>
+<li><strong>Variables</strong>: Aprovechar las variables CSS de Bootstrap 5</li>
+<li><strong>Documentación</strong>: Mantener esta documentación actualizada</li>
+</ol>
+<h3 id="mejores-pr%C3%A1cticas-actuales">Mejores Prácticas Actuales</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// ✅ Buena práctica: Usar React Bootstrap components</span>
+<span class="hljs-keyword">import</span> { Container, Nav, Navbar } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-bootstrap'</span>;
+
+<span class="hljs-comment">// ✅ Buena práctica: Combinar con clases personalizadas</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Navbar</span> <span class="hljs-attr">expand</span>=<span class="hljs-string">"lg"</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"navbar custom-navbar"</span>&gt;</span>
+
+// ✅ Buena práctica: Usar CSS variables
+.navbar {
+    background: var(--color-primario);
+}
+</span></div></code></pre>
+<h2 id="conclusi%C3%B3n">Conclusión</h2>
+<p>El proyecto <strong>Level Up Gamer React</strong> implementa Bootstrap de manera efectiva usando un enfoque híbrido que combina:</p>
+<ul>
+<li><strong>React Bootstrap</strong> para componentes complejos como la navegación</li>
+<li><strong>CSS personalizado</strong> para estilos específicos del proyecto</li>
+<li><strong>Bootstrap CSS</strong> como base para el sistema de diseño</li>
+</ul>
+<p>Esta implementación proporciona flexibilidad y control total sobre el diseño mientras mantiene la robustez y responsividad que ofrece Bootstrap 5.</p>
+<hr>
+<p><em>Documentación generada el 11 de diciembre de 2025</em><br>
+<em>Versiones: Bootstrap 5.3.8 | React Bootstrap 2.10.10</em></p>
+
+</body>
+</html>

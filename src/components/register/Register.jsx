@@ -3,6 +3,8 @@ import { showErrorToast, showSuccessToast } from '../../utils/toast';
 import { useSearchParams ,Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 import { registerUser } from '../../service/localStorage';
+import api, { setAuthToken } from '../../service/api';
+import { setUserSession } from '../../service/localStorage';
 import {
     validationRun,
     validationName,
@@ -23,10 +25,11 @@ export default function Register() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false);
     const [searchParams] = useSearchParams();
     const redirectTo = searchParams.get('redirect') || '/home';
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let isValid = true;
         const newErrors = {}
@@ -74,19 +77,72 @@ export default function Register() {
         }
 
         setErrors(newErrors);
-        if (isValid) {
-            const registrationResult = registerUser({ run, nombre, apellidos, direccion, email, password });
-            if (!registrationResult.success) {
-                showErrorToast(registrationResult.message); // Mostrar mensaje de error específico
-                return;
-            }
-            showSuccessToast('Registro exitoso')
-            navigate(redirectTo);
-            console.log('Formulario válido:', { run, nombre, apellidos, direccion, email, password });
-        } else {
-            const errorMessages = Object.values(newErrors)
+        if (!isValid) {
+            Object.values(newErrors)
                 .filter(msg => msg !== '')
                 .forEach(msg => showErrorToast(msg));
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            // mapear nombres de tu form a los campos del backend
+            const payload = {
+                run,
+                firstName: nombre,
+                lastName: apellidos,
+                email,
+                password,
+                role: "cliente" // o "cliente", "usuario", o enviar { "name": "..." } según tu API
+            };
+
+            // guardar token previo y quitar Authorization antes de llamar register
+            const prevToken = localStorage.getItem('token');
+            console.debug('[Register] prevToken:', prevToken, 'payload:', payload);
+            setAuthToken(null);
+
+            // luego llamar register sin Authorization
+            const resp = await api.post('/api/auth/register', payload);
+            const data = resp.data || {};
+            console.debug('[Register] resp status:', resp.status, 'data:', data);
+
+            if (data.token) {
+                setAuthToken(data.token);
+                                // establecer sesión mínima inmediatamente para actualizar UI
+                                try {
+                                    setUserSession({ email: data.email || email, name: data.name || nombre, run });
+                                } catch (e) { /* noop */ }
+                                // intentar obtener perfil completo del usuario desde backend y reemplazar la sesión
+                                try {
+                                    const respUser = await api.get(`/api/v1/users/by-email/${encodeURIComponent(data.email || email)}`);
+                                    if (respUser?.data) {
+                                        setUserSession(respUser.data);
+                                    }
+                                } catch (err) {
+                                    // fallback: ya tenemos sesión mínima
+                                }
+                                localStorage.setItem('email', data.email || email);
+                showSuccessToast(data.message || 'Registro exitoso');
+                console.debug('[Register] localStorage after setUserSession:', {
+                    token: localStorage.getItem('token'),
+                    email: localStorage.getItem('email'),
+                    isLoggedIn: localStorage.getItem('isLoggedIn'),
+                    currentUser: localStorage.getItem('currentUser')
+                });
+                navigate(redirectTo);
+            } else {
+                showErrorToast(data.message || 'Error en registro');
+            }
+            // restaurar token previo si existía y la respuesta no entregó uno nuevo
+            if (!data.token && prevToken) {
+                setAuthToken(prevToken);
+            }
+        } catch (err) {
+            const msg = err.response?.data?.message || 'Error de red al registrar';
+            showErrorToast(msg);
+        } finally {
+            setLoading(false);
         }
     }
 
